@@ -3,17 +3,13 @@ on: push
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Install Playwright
-        run: |
-          cd playwright
-          npm ci
-          npx playwright install
-      - name: Run Playwright tests
-        run: |
-          cd playwright
-          npx playwright test
+      - run: npm ci
+      - run: npx playwright install
+      - run: npx playwright test
